@@ -9,19 +9,38 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var SIMILAR_WIZARD_QUANTITY = 4;
 
-// функция, создающая случайного волшебника с генерацией параметров по массиву
+// функция для расчета случайного индекса элемента массива
+var calculateRandomIndex = function (arr) {
+  return Math.round(Math.random() * (arr.length - 1));
+};
+
+// функция, создающая случайного волшебника с генерацией параметров по массиву, исключено повторение параметров
 var createRandomWizard = function (firstName, lastName, coatColors, eyesColors) {
   var wizard = {};
-  wizard.name = firstName[Math.round(Math.random() * (firstName.length - 1))] + ' ' + lastName[Math.round(Math.random() * (firstName.length - 1))];
-  wizard.coatColor = coatColors[Math.round(Math.random() * coatColors.length)];
-  wizard.eyesColor = eyesColors[Math.round(Math.random() * eyesColors.length)];
+  var randomIndexFirstName = calculateRandomIndex(firstName);
+  var randomIndexLastName = calculateRandomIndex(lastName);
+  wizard.name = firstName[randomIndexFirstName] + ' ' + lastName[randomIndexLastName];
+  firstName.splice(randomIndexFirstName, 1);
+  lastName.splice(randomIndexLastName, 1);
+
+  var randomIndexCoatColor = calculateRandomIndex(coatColors);
+  wizard.coatColor = coatColors[randomIndexCoatColor];
+  coatColors.splice(randomIndexCoatColor, 1);
+
+  var randomIndexEyesColor = calculateRandomIndex(eyesColors);
+  wizard.eyesColor = eyesColors[randomIndexEyesColor];
+  eyesColors.splice(randomIndexEyesColor, 1);
   return wizard;
 };
 
 // генерация массива с волшебниками
 var similarWizards = [];
+var firstNameCopy = WIZARD_FIRST_NAME.slice();
+var lastNameCopy = WIZARD_LAST_NAME.slice();
+var coatColorsCopy = COAT_COLORS.slice();
+var eyesColorCopy = EYES_COLORS.slice();
 for (var i = 0; i < SIMILAR_WIZARD_QUANTITY; i++) {
-  similarWizards[i] = createRandomWizard(WIZARD_FIRST_NAME, WIZARD_LAST_NAME, COAT_COLORS, EYES_COLORS);
+  similarWizards[i] = createRandomWizard(firstNameCopy, lastNameCopy, coatColorsCopy, eyesColorCopy);
 }
 
 var similarListElement = document.querySelector('.setup-similar-list');
