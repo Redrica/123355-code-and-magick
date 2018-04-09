@@ -1,13 +1,13 @@
 'use strict';
 
-var setup = document.querySelector('.setup');
-setup.classList.remove('hidden');
-
-var WIZARD_FIRST_NAME = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARD_LAST_NAME = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+var WIZARD_FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+var WIZARD_LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var SIMILAR_WIZARD_QUANTITY = 4;
+
+var setup = document.querySelector('.setup');
+setup.classList.remove('hidden');
 
 // функция для расчета случайного индекса элемента массива
 var calculateRandomIndex = function (arr) {
@@ -35,8 +35,8 @@ var createRandomWizard = function (firstName, lastName, coatColors, eyesColors) 
 
 // генерация массива с волшебниками
 var similarWizards = [];
-var firstNameCopy = WIZARD_FIRST_NAME.slice();
-var lastNameCopy = WIZARD_LAST_NAME.slice();
+var firstNameCopy = WIZARD_FIRST_NAMES.slice();
+var lastNameCopy = WIZARD_LAST_NAMES.slice();
 var coatColorsCopy = COAT_COLORS.slice();
 var eyesColorCopy = EYES_COLORS.slice();
 for (var i = 0; i < SIMILAR_WIZARD_QUANTITY; i++) {
