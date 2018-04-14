@@ -73,12 +73,13 @@ var setupOpen = document.querySelector('.setup-open');
 var setup = document.querySelector('.setup');
 var setupClose = setup.querySelector('.setup-close');
 var inputUserName = setup.querySelector('.setup-user-name');
-var wizardEyes = setup.querySelector('.setup-wizard .wizard-eyes');
+var wizardEyes = setup.querySelector('.wizard-eyes');
 var wizardEyesInput = setup.querySelector('[name=eyes-color]');
 var wizardFireball = setup.querySelector('.setup-fireball-wrap');
 var wizardFireballInput = setup.querySelector('[name=fireball-color]');
 var wizardCoat = setup.querySelector('.wizard-coat');
 var wizardCoatInput = setup.querySelector('[name=coat-color]');
+var playerWizard = setup.querySelector('.setup-player');
 
 var onEscStopPropagation = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -92,43 +93,71 @@ var onPopupEscPress = function (evt) {
   }
 };
 
-var colorEyesChange = function (arr) {
-  var newColorIndex = calculateRandomIndex(arr);
-  wizardEyes.style.fill = arr[newColorIndex];
-  wizardEyesInput.value = arr[newColorIndex];
+// var colorEyesChange = function (arr) {
+//   var newColorIndex = calculateRandomIndex(arr);
+//   wizardEyes.style.fill = arr[newColorIndex];
+//   wizardEyesInput.value = arr[newColorIndex];
+// };
+//
+// var colorCoatChange = function (arr) {
+//   var newColorIndex = calculateRandomIndex(arr);
+//   wizardCoat.style.fill = arr[newColorIndex];
+//   wizardCoatInput.value = arr[newColorIndex];
+// };
+//
+// var colorFireballChange = function (arr) {
+//   var newColorIndex = calculateRandomIndex(arr);
+//   wizardFireball.style.backgroundColor = arr[newColorIndex];
+//   wizardFireballInput.value = arr[newColorIndex];
+// };
+//
+// var onClickEyesColorChange = function () {
+//   colorEyesChange(EYES_COLORS);
+// };
+//
+// var onClickCoatColorChange = function () {
+//   colorCoatChange(COAT_COLORS);
+// };
+//
+// var onClickFireballColorChange = function () {
+//   colorFireballChange(FIREBALL__COLORS);
+// };
+
+
+var colorizeFillOrBack = function (elem, color) {
+  if (elem.tagName === 'use') {
+    elem.style.fill = color;
+  } else {
+    elem.style.backgroundColor = color;
+  }
 };
 
-var colorCoatChange = function (arr) {
-  var newColorIndex = calculateRandomIndex(arr);
-  wizardCoat.style.fill = arr[newColorIndex];
-  wizardCoatInput.value = arr[newColorIndex];
-};
-
-var colorFireballChange = function (arr) {
-  var newColorIndex = calculateRandomIndex(arr);
-  wizardFireball.style.backgroundColor = arr[newColorIndex];
-  wizardFireballInput.value = arr[newColorIndex];
-};
-
-var onClickEyesColorChange = function () {
-  colorEyesChange(EYES_COLORS);
-};
-
-var onClickCoatColorChange = function () {
-  colorCoatChange(COAT_COLORS);
-};
-
-var onClickFireballColorChange = function () {
-  colorFireballChange(FIREBALL__COLORS);
+var onClickColorChange = function (evt) {
+  var target = evt.target;
+  if (target.tagName === 'use') {
+    var newColor = EYES_COLORS[calculateRandomIndex(EYES_COLORS)];
+    colorizeFillOrBack(wizardEyes, newColor);
+    wizardEyesInput.value = newColor;
+  } else if (target.tagName === 'use') {
+    newColor = COAT_COLORS[calculateRandomIndex(COAT_COLORS)];
+    colorizeFillOrBack(wizardCoat, newColor);
+    wizardCoatInput.value = newColor;
+  } else if (target.tagName === 'DIV') {
+    newColor = FIREBALL__COLORS[calculateRandomIndex(FIREBALL__COLORS)];
+    colorizeFillOrBack(wizardFireball, newColor);
+    wizardFireballInput.value = newColor;
+  }
 };
 
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
   inputUserName.addEventListener('keydown', onEscStopPropagation);
-  wizardEyes.addEventListener('click', onClickEyesColorChange);
-  wizardCoat.addEventListener('click', onClickCoatColorChange);
-  wizardFireball.addEventListener('click', onClickFireballColorChange);
+  // playerWizard.addEventListener('click', onClickColorChange);
+
+  wizardEyes.addEventListener('click', onClickColorChange);
+  wizardCoat.addEventListener('click', onClickColorChange);
+  wizardFireball.addEventListener('click', onClickColorChange);
 
   setupClose.addEventListener('click', function () {
     closePopup();
