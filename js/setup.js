@@ -93,60 +93,14 @@ var onPopupEscPress = function (evt) {
   }
 };
 
-// пока оставила, на тернарное выражение ругается ESLint
-// var colorizeFillOrBack = function (elem, color) {
-//   if (elem.tagName === 'use') {
-//     elem.style.fill = color;
-//   } else {
-//     elem.style.backgroundColor = color;
-//   }
-// };
-
-// ESLint ↓ ругается :-(
 var colorizeFillOrBack = function (elem, color) {
-  (elem.tagName === 'use') ? elem.style.fill = color : elem.style.backgroundColor = color;
+  if (elem.tagName === 'use') {
+    elem.style.fill = color;
+  } else {
+    elem.style.backgroundColor = color;
+  }
 };
 
-// Почему-то в случае svg не реагирует на className. А с div работает.
-// var onClickColorChange = function (evt) {
-//   var target = evt.target;
-//   if (target.className === 'wizard-eyes') {
-//     var newColor = EYES_COLORS[calculateRandomIndex(EYES_COLORS)];
-//     colorizeFillOrBack(wizardEyes, newColor);
-//     wizardEyesInput.value = newColor;
-//   } else if (target.className === 'wizard-coat') {
-//     newColor = COAT_COLORS[calculateRandomIndex(COAT_COLORS)];
-//     colorizeFillOrBack(wizardCoat, newColor);
-//     wizardCoatInput.value = newColor;
-//   } else if (target.className === 'setup-fireball') {
-//     newColor = FIREBALL__COLORS[calculateRandomIndex(FIREBALL__COLORS)];
-//     colorizeFillOrBack(wizardFireball, newColor);
-//     wizardFireballInput.value = newColor;
-//   }
-// };
-
-// var onClickColorChange = function (evt) {
-//   var target = evt.target;
-//   switch (target.className) {
-//     case 'wizard-eyes':
-//       var newColor = EYES_COLORS[calculateRandomIndex(EYES_COLORS)];
-//       colorizeFillOrBack(wizardEyes, newColor);
-//       wizardEyesInput.value = newColor;
-//       break;
-//     case 'wizard-coat':
-//       newColor = COAT_COLORS[calculateRandomIndex(COAT_COLORS)];
-//       colorizeFillOrBack(wizardCoat, newColor);
-//       wizardCoatInput.value = newColor;
-//       break;
-//     case 'setup-fireball':
-//       newColor = FIREBALL__COLORS[calculateRandomIndex(FIREBALL__COLORS)];
-//       colorizeFillOrBack(wizardFireball, newColor);
-//       wizardFireballInput.value = newColor;
-//       break;
-//   }
-// };
-
-// себе: РАБОТАЕТ. НЕ ТРОГАЙ :-)
 var onClickColorChange = function (evt) {
   var target = evt.target;
   if (target.matches('.wizard-eyes')) {
